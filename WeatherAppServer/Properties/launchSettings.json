@@ -12,9 +12,8 @@
     "Local-Dev": {
       "commandName": "Project",
       "launchBrowser": false,
-      "launchUrl": "cities/find/london",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "applicationUrl": "http://localhost:80",
       "dotnetRunMessages": true
@@ -22,7 +21,6 @@
     "Local-Prod": {
       "commandName": "Project",
       "launchBrowser": false,
-      "launchUrl": "cities/find/london",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Production"
       },
@@ -32,7 +30,6 @@
     "Docker-Dev": {
       "commandName": "Docker",
       "launchBrowser": false,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/cities/find/london",
       "publishAllPorts": true,
       "useSSL": true
     }
