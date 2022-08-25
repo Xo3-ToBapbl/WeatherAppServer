@@ -16,12 +16,12 @@ namespace WeatherAppServer.Controllers
         private const string GenericErrorMessage = "Generic exception appeared for longitude '{longitude}' and lattitude '{lattitude}' with '{errorMessage}' message";
 
         private readonly HttpClient _httpClient;
-        private readonly ILogger<CitiesController> _logger;
+        private readonly ILogger<WeatherController> _logger;
         private readonly WeatherServiceOptions _options;
         private readonly WeatherServiceSecrets _secrets;
 
         public WeatherController(
-            ILogger<CitiesController> logger,
+            ILogger<WeatherController> logger,
             IOptions<WeatherServiceOptions> options,
             IOptions<WeatherServiceSecrets> secrets,
             IHttpClientFactory factory)

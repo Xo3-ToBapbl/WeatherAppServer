@@ -1,6 +1,4 @@
 ﻿using WeatherAppServer.Controllers;
-using WeatherAppServer.Handlers;
-using WeatherAppServer.Providers;
 using WeatherAppServer.Settings.Options;
 using WeatherAppServer.Settings.Secrets;
 using WeatherAppServer.Utils;
@@ -28,7 +26,6 @@ namespace WeatherAppServer.Application
             RegisterConfigurations();
             RegisterOptions();
             RegisterSecrets();
-            RegisterServices();
             RegisterControllers();
             RegisterHttpClients();
 
@@ -45,20 +42,12 @@ namespace WeatherAppServer.Application
 
         private void RegisterOptions()
         {
-            _builder.Services.Configure<CitiesServiceOptions>(_builder.Configuration.GetSection(nameof(CitiesServiceOptions)));
             _builder.Services.Configure<WeatherServiceOptions>(_builder.Configuration.GetSection(nameof(WeatherServiceOptions)));
         }
 
         private void RegisterSecrets()
         {
-            _builder.Services.Configure<CitiesServiceSecrets>(_builder.Configuration.GetSection(CitiesServiceSecrets.Key));
             _builder.Services.Configure<WeatherServiceSecrets>(_builder.Configuration.GetSection(WeatherServiceSecrets.Key));
-        }
-
-        private void RegisterServices()
-        {
-            _builder.Services.AddScoped<CitiesTokenProvider>();
-            _builder.Services.AddScoped<CitiesControllerHandler>();
         }
 
         private void RegisterControllers()
@@ -68,17 +57,7 @@ namespace WeatherAppServer.Application
 
         private void RegisterHttpClients()
         {
-            var citiesOptions = _builder.Configuration.GetSection(nameof(CitiesServiceOptions)).Get<CitiesServiceOptions>();
             var weatherOptions = _builder.Configuration.GetSection(nameof(WeatherServiceOptions)).Get<WeatherServiceOptions>();
-
-            _builder.Services
-                .AddHttpClient(nameof(CitiesTokenProvider), client => client.BaseAddress = new(citiesOptions.Host))
-                .AddPolicyHandler(ApplicationPolicies.GetCitiesTokenProviderPolicy);
-
-            _builder.Services
-                .AddHttpClient(nameof(CitiesController), client => client.BaseAddress = new(citiesOptions.Host))
-                .AddPolicyHandler(ApplicationPolicies.GetCitiesControllerPolicy)
-                .AddHttpMessageHandler<CitiesControllerHandler>();
 
             _builder.Services
                 .AddHttpClient(nameof(WeatherController), client => client.BaseAddress = new(weatherOptions.Host))
