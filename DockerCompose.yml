@@ -1,0 +1,18 @@
+version: "3.9"
+services:
+  web:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/app/resources/weatherappserver-359712-4a40bf82baa8.json
+    volumes:
+      - c:\Users\Asus\AppData\Roaming\Microsoft\UserSecrets\:/root/.microsoft/usersecrets/:ro
+      - d:\Programming\NET.Core\WeatherAppServer\Resources\:/root/app/resources/:ro
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILD_CONFIGURATION: Debug
+
+    ports:
+      - "80:80"
